@@ -6,5 +6,5 @@ App.controller('AppController', ($scope, $http, $window) => {
       $scope.icons = res.data
       $scope.count = Object.keys(res.data).reduce((a, b) => a + res.data[b].length, 0)
       $window.alert(res.status);
-    }, function(){$window.alert(res.statusText)})
+    }, function(res){$window.alert(res.statusText)})
 })
