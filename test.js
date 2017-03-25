@@ -1,6 +1,6 @@
 var App = angular.module('App', [])
 
-App.controller('AppController', ($scope, $http, $window) => {
+App.controller('AppController', ($scope) => {
   $scope.icons = {
   "glyphicons": [
     "asterisk",
