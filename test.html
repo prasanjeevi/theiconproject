@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+    <script src="app.js"></script>
   </head>
-  <body>
+<body ng-controller="AppController">
     <div class="container">
 
       <h1>The Icon Project</h1>
@@ -20,9 +22,10 @@
     
     <section id="glyphicons">
       <h2>Glyphicons</h2>
-      
+      <p><span>{{icons.glyphicons.length}}</span> icons</p>
       <ul>
-        <li class="glyphicon glyphicon-cloud">
+        <li ng-repeat="icon in icons.glyphicons | filter: keyword" class="glyphicon glyphicon-{{icon}}">
+          <span class="name">{{icon}}</span>
         </li>
       </ul>
     </section>
