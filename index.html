@@ -1,0 +1,58 @@
+<!DOCTYPE>
+<html ng-app="App">
+  <head>
+    <meta charset="utf-8">
+    <title>The Icon Project</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+  <body ng-controller="AppController">
+    <div class="container">
+
+      <h1>The Icon Project</h1>
+      <p><span>{{count}}</span> icons</p>
+    
+      <input class="form-control" ng-model="keyword">
+    
+    <section id="glyphicons">
+      <h2>Glyphicons</h2>
+      <p><span>{{icons.glyphicons.length}}</span> icons</p>
+      <ul>
+        <li ng-repeat="icon in icons.glyphicons | filter: keyword" span class="glyphicon glyphicon-{{icon}}">
+          <span class="name">{{icon}}</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="fontawesome">
+      <h2>Font Awesome</h2>
+      <p><span>{{icons.fontawesome.length}}</span> icons</p>
+      <ul>
+        <li ng-repeat="icon in icons.fontawesome | filter: keyword" class="fa fa-{{icon.id}}"><span class="name">{{icon.name}}</span></li>
+      </ul>
+    </section>
+
+    <section id="materialicons">
+      <h2>Material icons</h2>
+      <p><span>{{icons.materialicons.length}}</span> icons</p>
+      <ul>
+        <li ng-repeat="icon in icons.materialicons | filter: keyword"><i class="material-icons">{{icon.name}}</i><span class="name">{{icon.name}}</span></li>
+      </ul>
+    </section>
+
+    <section id="octions">
+      <h2>Octicons</h2>
+      <p><span>{{icons.octicons.length}}</span> icons</p>
+      <ul>
+        <li ng-repeat="icon in icons.octicons | filter: keyword" class="octicon octicon-{{icon.name}}"><span class="name">{{icon.name}}</span></li>
+      </ul>
+    </section>
+
+    </div>
+  </body>
+</html>
