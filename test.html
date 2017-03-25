@@ -1,4 +1,4 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html ng-app="App">
   <head>
     <meta charset="utf-8">
@@ -8,49 +8,43 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css">
     <link rel="stylesheet" href="style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
-    <script src="test.js"></script>
   </head>
-  <body ng-controller="AppController">
+  <body>
     <div class="container">
 
       <h1>The Icon Project</h1>
       <p>Glyphicons, Font Awesome, Material and Octicons at one place</p>
-      <p><span>{{count}}</span> icons</p>
+      
     
-      <input class="form-control" placeholder="Search keyword" ng-model="keyword">
+      <input class="form-control" placeholder="Search keyword">
     
     <section id="glyphicons">
       <h2>Glyphicons</h2>
-      <p><span>{{icons.glyphicons.length}}</span> icons</p>
+      
       <ul>
-        <li ng-repeat="icon in icons.glyphicons | filter: keyword" span class="glyphicon glyphicon-{{icon}}">
-          <span class="name">{{icon}}</span>
+        <li class="glyphicon glyphicon-cloud">
         </li>
       </ul>
     </section>
 
     <section id="fontawesome">
       <h2>Font Awesome</h2>
-      <p><span>{{icons.fontawesome.length}}</span> icons</p>
       <ul>
-        <li ng-repeat="icon in icons.fontawesome | filter: keyword" class="fa fa-{{icon.id}}"><span class="name">{{icon.name}}</span></li>
+        <li class="fa fa-cloud"></li>
       </ul>
     </section>
 
     <section id="materialicons">
       <h2>Material icons</h2>
-      <p><span>{{icons.materialicons.length}}</span> icons</p>
       <ul>
-        <li ng-repeat="icon in icons.materialicons | filter: keyword"><i class="material-icons">{{icon.name}}</i><span class="name">{{icon.name}}</span></li>
+        <li><i class="material-icons">cloud</i></li>
       </ul>
     </section>
 
     <section id="octions">
       <h2>Octicons</h2>
-      <p><span>{{icons.octicons.length}}</span> icons</p>
       <ul>
-        <li ng-repeat="icon in icons.octicons | filter: keyword" class="octicon octicon-{{icon.name}}"><span class="name">{{icon.name}}</span></li>
+        <li class="octicon octicon-cloud-download"></li>
       </ul>
     </section>
 
