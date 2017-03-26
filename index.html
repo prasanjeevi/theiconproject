@@ -3,57 +3,104 @@
   <head>
     <meta charset="utf-8">
     <title>The Icon Project</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css">
+    <link id="bootstrap-css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link id="fontawesome-css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link id="materialicons-css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link id="octicons-css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/font/octicons.css">
     <link rel="stylesheet" href="style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
-    <script src="app.js"></script>
   </head>
   <body ng-controller="AppController">
     <div class="container">
 
       <h1>The Icon Project</h1>
       <p>Glyphicons, Font Awesome, Material and Octicons at one place</p>
+      <p>Click a icon for its details</p>
       <p><span>{{count}}</span> icons</p>
     
-      <input class="form-control" placeholder="Search keyword" ng-model="keyword">
+      <input id="search" class="form-control" placeholder="Search keyword" ng-model="keyword">
     
-    <section id="glyphicons">
-      <h2>Glyphicons</h2>
-      <p><span>{{icons.glyphicons.length}}</span> icons</p>
-      <ul>
-        <li ng-repeat="icon in icons.glyphicons | filter: keyword" class="glyphicon glyphicon-{{icon}}">
-          <span class="name">{{icon}}</span>
-        </li>
-      </ul>
-    </section>
+      <section id="glyphicons">
+        <h2>Glyphicons</h2>
+        <p><span>{{icons.glyphicons.length}}</span> icons</p>
+        <ul>
+          <li ng-repeat="icon in icons.glyphicons | filter: keyword" 
+              class="glyphicon glyphicon-{{icon}}" ng-click="show($event.target, 'bootstrap-css')">
+            <span class="name">{{icon}}</span>
+          </li>
+        </ul>
+      </section>
 
-    <section id="fontawesome">
-      <h2>Font Awesome</h2>
-      <p><span>{{icons.fontawesome.length}}</span> icons</p>
-      <ul>
-        <li ng-repeat="icon in icons.fontawesome | filter: keyword" class="fa fa-{{icon.id}}"><span class="name">{{icon.name}}</span></li>
-      </ul>
-    </section>
+      <section id="fontawesome">
+        <h2>Font Awesome</h2>
+        <p><span>{{icons.fontawesome.length}}</span> icons</p>
+        <ul>
+          <li ng-repeat="icon in icons.fontawesome | filter: keyword" 
+          class="fa fa-{{icon.id}}" ng-click="show($event.target, 'fontawesome-css')">
+            <span class="name">{{icon.name}}</span></li>
+        </ul>
+      </section>
 
-    <section id="materialicons">
-      <h2>Material icons</h2>
-      <p><span>{{icons.materialicons.length}}</span> icons</p>
-      <ul>
-        <li ng-repeat="icon in icons.materialicons | filter: keyword"><i class="material-icons">{{icon.name}}</i><span class="name">{{icon.name}}</span></li>
-      </ul>
-    </section>
+      <section>
+        <h2>Material icons</h2>
+        <p><span>{{icons.materialicons.length}}</span> icons</p>
+        <ul>
+          <li ng-repeat="icon in icons.materialicons | filter: keyword">
+            <i class="material-icons" ng-click="showMaterial(icon.name)">{{icon.name}}</i>
+            <span class="name">{{icon.name}}</span></li>
+        </ul>
+      </section>
 
-    <section id="octions">
-      <h2>Octicons</h2>
-      <p><span>{{icons.octicons.length}}</span> icons</p>
-      <ul>
-        <li ng-repeat="icon in icons.octicons | filter: keyword" class="octicon octicon-{{icon.name}}"><span class="name">{{icon.name}}</span></li>
-      </ul>
-    </section>
+      <section>
+        <h2>Octicons</h2>
+        <p><span>{{icons.octicons.length}}</span> icons</p>
+        <ul>
+          <li ng-repeat="icon in icons.octicons | filter: keyword" 
+          class="octicon octicon-{{icon.name}}" ng-click="show($event.target, 'octicons-css')">
+          <span class="name">{{icon.name}}</span></li>
+        </ul>
+      </section>
+
+      <!-- Modal -->
+      <div id="icon-detail-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">{{icon}}</h4>
+            </div>
+            <div class="modal-body">
+                <span class="{{iconClass}}"></span>
+                <i class="material-icons" ng-if="isHtml">{{icon}}</i>
+                
+                <div class="input-group">
+                  <input type="text" class="form-control" ng-model="iconClass" id="icon-class" readonly>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" id="copy-button"
+                        data-toggle="tooltip" data-placement="top" data-clipboard-target="#icon-class"
+                        title="Copy to Clipboard">Copy
+                    </button>
+                  </span>
+                </div>
+                <div class="input-group mb10">
+                  <input type="text" class="form-control" ng-model="lib" id="icon-lib" readonly>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" id="copy-button"
+                        data-toggle="tooltip" data-placement="top" data-clipboard-target="#icon-lib"
+                        title="Copy to Clipboard">Copy
+                    </button>
+                  </span>
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
     </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="clipboard.min.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
